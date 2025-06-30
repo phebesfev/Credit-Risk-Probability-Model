@@ -51,10 +51,53 @@ numeric_cols = [
 scaler = StandardScaler()
 df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
 
+
+
+
+## TASK4
+
+#RFM calculation
+snapshot_date = df['TransactionStartTime'].max() + pd.Timedelta(days=1)
+
+rfm = df.groupby('CustomerId').agg({
+    'TransactionStartTime': lambda x: (snapshot_date - x.max()).days,
+    'TransactionId': 'count',
+    'Amount': 'sum'
+}).reset_index()
+
+rfm.columns = ['CustomerId', 'Recency', 'Frequency', 'Monetary']
+
+rfm_scaled = scaler.fit_transform(rfm[['Recency', 'Frequency', 'Monetary']])
+
+# KMEANS clustering
+
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+rfm['cluster'] = kmeans.fit_predict(rfm_scaled)
+
+cluster_summary = rfm.groupby('cluster').agg({
+    'Recency': 'mean',
+    'Frequency': 'mean',
+    'Monetary': 'mean'
+}).reset_index()
+
+# Sort to find worst (least engaged) group
+high_risk_cluster = cluster_summary.sort_values(
+    ['Recency', 'Frequency', 'Monetary'],
+    ascending=[False, True, True]
+).iloc[0]['cluster']
+
+rfm['is_high_risk'] = (rfm['cluster'] == high_risk_cluster).astype(int)
+
+df = df.merge(rfm[['CustomerId', 'is_high_risk']], on='CustomerId', how='left')
+
 df.to_csv("../data/processed/pdata.csv",index=False)
 
 
-    
-    
+
+
+
+
 
  

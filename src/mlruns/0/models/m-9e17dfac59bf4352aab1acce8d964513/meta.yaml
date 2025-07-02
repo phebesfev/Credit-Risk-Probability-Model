@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/LENOVO/OneDrive/Documents/KAIM/Credit-Risk-Probability-Model/src/mlruns/0/models/m-9e17dfac59bf4352aab1acce8d964513/artifacts
+creation_timestamp: 1751467451820
+experiment_id: '0'
+last_updated_timestamp: 1751467471866
+model_id: m-9e17dfac59bf4352aab1acce8d964513
+model_type: null
+name: rf_model
+source_run_id: 5f68b38a40b44342b88ef7d86156d312
+status: 2
+status_message: null

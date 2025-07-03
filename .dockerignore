@@ -1,0 +1,33 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environments
+venv/
+.env/
+
+# Version control
+.git/
+.gitignore
+
+# MLflow tracking junk
+mlruns/
+*.mlmodel
+
+# Data files
+data/
+*.csv
+*.tsv
+*.xlsx
+*.pkl
+
+# OS/IDE stuff
+.DS_Store
+*.swp
+*.bak
+*.tmp
+.idea/
+.vscode/

@@ -1,2 +1,12 @@
 mlflow
+scikit-learn
+pandas
+
 pytest
+
+fastapi
+uvicorn
+
+# linting
+flake8
+# black
